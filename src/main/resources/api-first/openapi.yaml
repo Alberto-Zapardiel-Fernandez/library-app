@@ -1,0 +1,40 @@
+openapi: 3.0.0
+info:
+  title: Library API
+  version: 1.0.0
+tags:
+  - name: Book
+    description: Operations related to books.
+servers:
+  - url: "/v1"
+paths:
+  /books:
+    get:
+      operationId: getBooks
+      summary: Get a list of books.
+      tags:
+        - Book
+      responses:
+        '200':
+          description: List of books.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        author:
+          type: string
+        isbn:
+          type: string
+        available:
+          type: boolean
