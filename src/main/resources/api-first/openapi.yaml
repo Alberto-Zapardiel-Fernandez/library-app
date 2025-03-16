@@ -14,15 +14,18 @@ paths:
       summary: Get a list of books.
       tags:
         - Book
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
       responses:
         '200':
-          description: List of books.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+          $ref: '#/components/responses/PagedBookListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
 components:
   schemas:
     Book:
@@ -38,3 +41,77 @@ components:
           type: string
         available:
           type: boolean
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+        next:
+          type: string
+        prev:
+          type: string
+        last:
+          type: string
+        count:
+          type: integer
+    PagedBookList:
+      type: object
+      properties:
+        books:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'
+        links:
+          $ref: '#/components/schemas/Links'
+  parameters: # Moved parameters to components.parameters
+    Offset:
+      name: offset
+      in: query
+      description: Number of items to skip.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Number of items to return.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+  responses:
+    BadRequest:
+      description: Bad request response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PagedBookListResponse:
+      description: List of books with pagination links.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PagedBookList'
