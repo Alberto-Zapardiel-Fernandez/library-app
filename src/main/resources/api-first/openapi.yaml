@@ -70,7 +70,7 @@ components:
             $ref: '#/components/schemas/Book'
         links:
           $ref: '#/components/schemas/Links'
-  parameters: # Moved parameters to components.parameters
+  parameters:
     Offset:
       name: offset
       in: query
