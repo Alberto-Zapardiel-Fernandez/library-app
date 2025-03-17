@@ -2,14 +2,18 @@ package com.library.library_app.application.controller;
 
 import   com.library.application.controller.api.BookApi;
 import com.library.application.controller.dto.PagedBookListDTO;
+import com.library.library_app.application.hateoas.BookUrlBuilder;
+import com.library.library_app.application.hateoas.PaginationLinksGenerator;
 import com.library.library_app.application.mapper.BookMapper;
 import com.library.library_app.application.service.BookService;
 import com.library.library_app.domain.model.BookModel;
 import lombok.AllArgsConstructor;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -37,9 +41,15 @@ public class BookController implements BookApi {
      */
     @Override
     public ResponseEntity<PagedBookListDTO> getBooks(Optional<Integer> offset, Optional<Integer> limit) {
-
+        int offsetValue = offset.orElse(0);
+        int limitValue = limit.orElse(10);
         PagedModel<BookModel> pagedModel = bookService.getBooks(offset.orElse(0), limit.orElse(10));
 
+        BookUrlBuilder urlBuilder = new BookUrlBuilder();
+        Links links = PaginationLinksGenerator.generateLinks(offsetValue, limitValue,
+                Objects.requireNonNull(pagedModel.getMetadata()).getTotalElements(), urlBuilder);
+
+        pagedModel.add(links);
         PagedBookListDTO pagedBookListDTO = bookMapper.bookModelToPagedBookListDto(pagedModel);
 
         return ResponseEntity.ok(pagedBookListDTO);
