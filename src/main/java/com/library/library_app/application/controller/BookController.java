@@ -1,6 +1,7 @@
 package com.library.library_app.application.controller;
 
-import   com.library.application.controller.api.BookApi;
+import com.library.application.controller.api.BookAPI;
+import com.library.application.controller.dto.BookDTO;
 import com.library.application.controller.dto.PagedBookListDTO;
 import com.library.library_app.application.hateoas.BookUrlBuilder;
 import com.library.library_app.application.hateoas.PaginationLinksGenerator;
@@ -23,11 +24,50 @@ import java.util.Optional;
 */
 @RestController
 @AllArgsConstructor
-public class BookController implements BookApi {
+public class BookController implements BookAPI {
 
     private BookService bookService;
 
     private BookMapper bookMapper;
+
+    /**
+     * POST /create_book : Create a new book.
+     *
+     * @param bookDTO (required)
+     * @return The created book. (status code 201)
+     * or Bad request response. (status code 400)
+     * or Forbidden response. (status code 403)
+     * or Not found response. (status code 404)
+     */
+    @Override
+    public ResponseEntity<BookDTO> createBook(BookDTO bookDTO) {
+        return null;
+    }
+
+    /**
+     * DELETE /delete_book/{id} : Delete a book by id.
+     *
+     * @param id The id of the book. (required)
+     * @return No content. (status code 204)
+     */
+    @Override
+    public ResponseEntity<Void> deleteBook(Integer id) {
+        return null;
+    }
+
+    /**
+     * GET /search_book/{id} : Get a book by id.
+     *
+     * @param id The id of the book. (required)
+     * @return The book data. (status code 200)
+     * or Bad request response. (status code 400)
+     * or Forbidden response. (status code 403)
+     * or Not found response. (status code 404)
+     */
+    @Override
+    public ResponseEntity<BookDTO> getBook(Integer id) {
+        return null;
+    }
 
     /**
      * GET /books : Get a list of books.
@@ -53,6 +93,21 @@ public class BookController implements BookApi {
         PagedBookListDTO pagedBookListDTO = bookMapper.bookModelToPagedBookListDto(pagedModel);
 
         return ResponseEntity.ok(pagedBookListDTO);
+    }
+
+    /**
+     * PUT /update_book/{id} : Update a book by id.
+     *
+     * @param id      The id of the book. (required)
+     * @param bookDTO (required)
+     * @return The updated book data. (status code 200)
+     * or Bad request response. (status code 400)
+     * or Forbidden response. (status code 403)
+     * or Not found response. (status code 404)
+     */
+    @Override
+    public ResponseEntity<BookDTO> updateBook(Integer id, BookDTO bookDTO) {
+        return null;
     }
 
 }

@@ -6,9 +6,9 @@ tags:
   - name: Book
     description: Operations related to books.
 servers:
-  - url: "/v1"
+  - url: "/books"
 paths:
-  /books:
+  "/search_books":
     get:
       operationId: getBooks
       summary: Get a list of books.
@@ -26,6 +26,90 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+  "/create_book":
+    post:
+      operationId: createBook
+      summary: Create a new book.
+      tags:
+        - Book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          description: The created book.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  "/search_book/{id}":
+    get:
+      operationId: getBook
+      summary: Get a book by id.
+      tags:
+        - Book
+      parameters:
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200':
+          description: The book data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  "/update_book/{id}":
+    put:
+      operationId: updateBook
+      summary: Update a book by id.
+      tags:
+        - Book
+      parameters:
+        - $ref: '#/components/parameters/BookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: The updated book data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  "/delete_book/{id}":
+    delete:
+      operationId: deleteBook
+      summary: Delete a book by id.
+      tags:
+        - Book
+      parameters:
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '204':
+          description: No content.
 components:
   schemas:
     Book:
@@ -90,6 +174,14 @@ components:
         minimum: 1
         maximum: 100
         default: 10
+    BookId:
+      name: id
+      in: path
+      description: The id of the book.
+      required: true
+      schema:
+        type: integer
+        example: 1
   responses:
     BadRequest:
       description: Bad request response.
