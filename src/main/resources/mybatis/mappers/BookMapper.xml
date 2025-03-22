@@ -7,4 +7,10 @@
   <select id="count" resultType="int">
     SELECT COUNT(*) FROM books
   </select>
+  <select id="findById" resultType="com.library.library_app.domain.model.BookModel">
+  SELECT * FROM books WHERE id = #{id}
+  </select>
+  <select id="findByIsbn" resultType="com.library.library_app.domain.model.BookModel">
+  SELECT * FROM books WHERE isbn = #{isbn}
+  </select>
 </mapper>

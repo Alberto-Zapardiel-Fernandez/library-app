@@ -34,4 +34,26 @@ public class BookServiceImpl implements BookService {
         return bookRepository.getBooks(offset, limit);
     }
 
+    /**
+     * Get a book by id
+     *
+     * @param id the id
+     * @return the book
+     */
+    @Override
+    public BookModel getBookById(Integer id) {
+        return bookRepository.getBookById(id);
+    }
+
+    /**
+     * Get a book by isbn
+     *
+     * @param isbn the isbn
+     * @return the book
+     */
+    @Override
+    public BookModel getBookByIsbn(String isbn) {
+        return bookRepository.getBookByIsbn(isbn);
+    }
+
 }

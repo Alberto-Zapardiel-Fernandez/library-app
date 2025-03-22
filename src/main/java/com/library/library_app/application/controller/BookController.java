@@ -11,6 +11,7 @@ import com.library.library_app.domain.model.BookModel;
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.Links;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +27,14 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BookController implements BookAPI {
 
+    /**
+     * Book Service
+     */
     private BookService bookService;
 
+    /**
+     * Book Mapper
+     */
     private BookMapper bookMapper;
 
     /**
@@ -66,7 +73,31 @@ public class BookController implements BookAPI {
      */
     @Override
     public ResponseEntity<BookDTO> getBook(Integer id) {
-        return null;
+        BookModel response = bookService.getBookById(id);
+        if (response == null) {
+            return new ResponseEntity<>(new BookDTO(),null, HttpStatus.NOT_FOUND);
+        }else{
+        return new ResponseEntity<>(bookMapper.bookModelToBookDto(response), null , HttpStatus.OK);
+        }
+    }
+
+    /**
+     * GET /search_book/{isbn} : Get a book by isbn.
+     *
+     * @param isbn The id of the book. (required)
+     * @return The book data. (status code 200)
+     * or Bad request response. (status code 400)
+     * or Forbidden response. (status code 403)
+     * or Not found response. (status code 404)
+     */
+    @Override
+    public ResponseEntity<BookDTO> getBookByIsbn(String isbn) {
+        BookModel response = bookService.getBookByIsbn(isbn);
+        if (response == null) {
+            return new ResponseEntity<>(new BookDTO(),null, HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(bookMapper.bookModelToBookDto(response), null , HttpStatus.OK);
+        }
     }
 
     /**

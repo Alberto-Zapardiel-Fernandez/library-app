@@ -19,4 +19,18 @@ public interface BookService {
      * @return List of books with pagination links.
     */
     PagedModel<BookModel> getBooks(int offset, int limit);
+
+    /**
+     * Get a book by id
+     * @param id the id
+     * @return the book
+     */
+    BookModel getBookById(Integer id);
+
+    /**
+     * Get a book by isbn
+     * @param isbn the isbn
+     * @return the book
+     */
+    BookModel getBookByIsbn(String isbn);
 }

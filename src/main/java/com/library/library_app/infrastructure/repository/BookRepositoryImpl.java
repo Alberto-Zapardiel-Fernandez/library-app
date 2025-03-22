@@ -47,4 +47,26 @@ public class BookRepositoryImpl implements BookRepository {
 
         return PagedModel.of(books, new PagedModel.PageMetadata(limit, offset, total));
     }
+
+    /**
+     * Get a book by id
+     *
+     * @param id the id
+     * @return the book
+     */
+    @Override
+    public BookModel getBookById(Integer id) {
+        return myBatisBookMapper.findById(id);
+    }
+
+    /**
+     * Get a book by isbn
+     *
+     * @param isbn the isbn
+     * @return the book
+     */
+    @Override
+    public BookModel getBookByIsbn(String isbn) {
+        return myBatisBookMapper.findByIsbn(isbn);
+    }
 }

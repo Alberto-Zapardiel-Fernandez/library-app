@@ -72,6 +72,27 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+  "/search_book":
+    get:
+      operationId: getBookByIsbn
+      summary: Get a book by isbn.
+      tags:
+        - Book
+      parameters:
+        - $ref: '#/components/parameters/Book-isbn'
+      responses:
+        '200':
+          description: The book data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
   "/update_book/{id}":
     put:
       operationId: updateBook
@@ -181,7 +202,16 @@ components:
       required: true
       schema:
         type: integer
-        example: 1
+      example: 1
+    Book-isbn:
+      name: isbn
+      in: query
+      description: The id of the book.
+      required: true
+      schema:
+        type: string
+        pattern: '^\d{3}-\d{2}-\d{3}-\d{3}-\d{1}$'
+      example: 978-85-99-14-901-9
   responses:
     BadRequest:
       description: Bad request response.
