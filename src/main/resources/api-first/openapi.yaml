@@ -9,7 +9,7 @@ servers:
   - url: "/books"
 paths:
   "/search_books":
-    get:
+    post:
       operationId: getBooks
       summary: Get a list of books.
       tags:
@@ -17,34 +17,11 @@ paths:
       parameters:
         - $ref: '#/components/parameters/Offset'
         - $ref: '#/components/parameters/Limit'
+      requestBody:
+        $ref: '#/components/requestBodies/BookSearch'
       responses:
         '200':
           $ref: '#/components/responses/PagedBookListResponse'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-  "/create_book":
-    post:
-      operationId: createBook
-      summary: Create a new book.
-      tags:
-        - Book
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Book'
-      responses:
-        '201':
-          description: The created book.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Book'
         '400':
           $ref: '#/components/responses/BadRequest'
         '403':
@@ -93,6 +70,31 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+  "/create_book":
+    post:
+      operationId: createBook
+      summary: Create a new book.
+      tags:
+        - Book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          description: The created book.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
   "/update_book":
     put:
       operationId: updateBook
@@ -130,7 +132,15 @@ paths:
         '204':
           description: No content.
 components:
+  requestBodies:
+    BookSearch:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BookSearchFilter'
   schemas:
+    BookSearchFilter:
+      $ref: '#/components/schemas/Book'
     Book:
       type: object
       properties:

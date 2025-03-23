@@ -1,6 +1,7 @@
 package com.library.library_app.infrastructure.mybatis;
 
 import com.library.library_app.domain.model.BookModel;
+import com.library.library_app.domain.model.BookModelFilter;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,17 +16,10 @@ public interface MyBatisBookMapper {
 
     /**
      * Find all books.
-     * @param offset the offset
-     * @param limit the limit
+     * @param filter the filter
      * @return a list of books
      */
-    List<BookModel> findAll(int offset, int limit);
-
-    /**
-     * The total of books
-     * @return the total of books
-     */
-    int count();
+    List<BookModel> findAll(BookModelFilter filter);
 
     /**
      * Fina a book by his id

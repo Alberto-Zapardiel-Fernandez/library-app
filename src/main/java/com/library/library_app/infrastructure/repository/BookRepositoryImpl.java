@@ -1,6 +1,7 @@
 package com.library.library_app.infrastructure.repository;
 
 import com.library.library_app.domain.model.BookModel;
+import com.library.library_app.domain.model.BookModelFilter;
 import com.library.library_app.domain.repository.BookRepository;
 import com.library.library_app.infrastructure.mybatis.MyBatisBookMapper;
 import lombok.AllArgsConstructor;
@@ -26,16 +27,14 @@ public class BookRepositoryImpl implements BookRepository {
     /**
      * Get a list of books.
      *
-     * @param offset Number of items to skip.
-     * @param limit  Number of items to return.
+     * @param filter Teh filter
      * @return List of books with pagination links.
      */
     @Override
-    public PagedModel<BookModel> getBooks(int offset, int limit) {
-        List<BookModel> books = myBatisBookMapper.findAll(offset, limit);
-        int total = myBatisBookMapper.count();
+    public PagedModel<BookModel> getBooks(BookModelFilter filter) {
+        List<BookModel> books = myBatisBookMapper.findAll(filter);
 
-        return PagedModel.of(books, new PagedModel.PageMetadata(limit, offset, total));
+        return PagedModel.of(books, new PagedModel.PageMetadata(filter.getLimit(), filter.getOffset(), books.size()));
     }
 
     /**

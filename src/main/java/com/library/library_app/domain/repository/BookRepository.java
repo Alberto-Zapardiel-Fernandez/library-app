@@ -1,6 +1,7 @@
 package com.library.library_app.domain.repository;
 
 import com.library.library_app.domain.model.BookModel;
+import com.library.library_app.domain.model.BookModelFilter;
 import org.springframework.hateoas.PagedModel;
 
 /**
@@ -13,11 +14,10 @@ public interface BookRepository {
     /**
      * Get a list of books.
      *
-     * @param offset Number of items to skip.
-     * @param limit  Number of items to return.
+     * @param filter The filter
      * @return List of books with pagination links.
      */
-    PagedModel<BookModel> getBooks(int offset, int limit);
+    PagedModel<BookModel> getBooks(BookModelFilter filter);
 
     /**
      * Get a book by id

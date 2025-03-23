@@ -121,8 +121,9 @@ public class BookController implements BookAPI {
      * or Not found response. (status code 404)
      */
     @Override
-    public ResponseEntity<PagedBookListDTO> getBooks(Integer offset, Integer limit) {
-        PagedModel<BookModel> pagedModel = bookService.getBooks(offset, limit);
+    public ResponseEntity<PagedBookListDTO> getBooks(Integer offset, Integer limit, BookDTO body) {
+        BookModel filter = bookMapper.bookDtoToBookModel(body);
+        PagedModel<BookModel> pagedModel = bookService.getBooks(offset, limit, filter);
 
         BookUrlBuilder urlBuilder = new BookUrlBuilder();
         Links links = PaginationLinksGenerator.generateLinks(offset, limit,

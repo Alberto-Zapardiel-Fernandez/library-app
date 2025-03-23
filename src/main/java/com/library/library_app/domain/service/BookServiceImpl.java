@@ -2,6 +2,7 @@ package com.library.library_app.domain.service;
 
 import com.library.library_app.application.service.BookService;
 import com.library.library_app.domain.model.BookModel;
+import com.library.library_app.domain.model.BookModelFilter;
 import com.library.library_app.domain.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +28,17 @@ public class BookServiceImpl implements BookService {
      *
      * @param offset Number of items to skip.
      * @param limit  Number of items to return.
+     * @param model The filter
      * @return List of books with pagination links.
      */
     @Override
-    public PagedModel<BookModel> getBooks(int offset, int limit) {
-        return bookRepository.getBooks(offset, limit);
+    public PagedModel<BookModel> getBooks(int offset, int limit, BookModel model) {
+        BookModelFilter filter = BookModelFilter.builder()
+                .limit(limit)
+                .offset(offset)
+                .bookModel(model)
+                .build();
+        return bookRepository.getBooks(filter);
     }
 
     /**

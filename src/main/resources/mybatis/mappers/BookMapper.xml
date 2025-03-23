@@ -1,28 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.library.library_app.infrastructure.mybatis.MyBatisBookMapper">
-  <select id="findAll" resultType="com.library.library_app.domain.model.BookModel">
-    SELECT * FROM books LIMIT #{limit} OFFSET #{offset}
+  <select id="findAll"
+          resultType="com.library.library_app.domain.model.BookModel"
+          parameterType="com.library.library_app.domain.model.BookModelFilter">
+    SELECT * FROM books
+    WHERE 1 = 1
+    <if test="bookModel.id != null">
+      AND id = #{bookModel.id}
+    </if>
+    <if test="bookModel.title != null">
+      AND title = #{bookModel.title}
+    </if>
+    <if test="bookModel.author != null ">
+      AND author = #{bookModel.author}
+    </if>
+    <if test="bookModel.isbn != null">
+      AND isbn = #{bookModel.isbn}
+    </if>
+    <if test="bookModel.available != null">
+      AND available = #{bookModel.available}
+    </if>
+    LIMIT #{limit} OFFSET #{offset}
   </select>
-  <select id="count" resultType="int">
-    SELECT COUNT(*) FROM books
-  </select>
+
   <select id="findById" resultType="com.library.library_app.domain.model.BookModel">
     SELECT * FROM books WHERE id = #{id}
   </select>
+
   <select id="findByIsbn" resultType="com.library.library_app.domain.model.BookModel">
     SELECT * FROM books WHERE isbn = #{isbn}
   </select>
+
   <insert id="createBook" parameterType="com.library.library_app.domain.model.BookModel">
     INSERT INTO books (title, author, isbn, available)
     VALUES (#{title}, #{author}, #{isbn}, #{available})
   </insert>
+
   <delete id="deleteBook" parameterType="int">
     DELETE FROM books WHERE id = #{id}
   </delete>
+
   <update id="updateBook" parameterType="com.library.library_app.domain.model.BookModel">
     UPDATE books
     SET title = #{title}, author = #{author}, isbn = #{isbn}, available = #{available}
     WHERE isbn= #{isbn}
   </update>
+
 </mapper>
