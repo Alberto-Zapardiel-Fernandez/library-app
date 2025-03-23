@@ -41,4 +41,26 @@ public class UserServiceImpl implements UserService {
     public PagedModel<UserModel> getUsers(UserModelFilter filter) {
         return userRepository.getUsers(filter);
     }
+
+    /**
+     * Delete User
+     *
+     * @param id the user id
+     * @return the confirmation
+     */
+    @Override
+    public int deleteUser(Integer id) {
+        return userRepository.deleteUser(id);
+    }
+
+    /**
+     * Update User
+     *
+     * @param model the user
+     * @return the user updated
+     */
+    @Override
+    public UserModel updateUser(UserModel model) {
+        return userRepository.updateUser(model);
+    }
 }

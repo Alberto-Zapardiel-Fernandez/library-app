@@ -24,4 +24,18 @@ public interface UserService {
      * @return the users
      */
     PagedModel<UserModel> getUsers(UserModelFilter filter);
+
+    /**
+     * Delete User
+     * @param id the user id
+     * @return the confirmation
+     */
+    int deleteUser(Integer id);
+
+    /**
+     * Update User
+     * @param model the user
+     * @return the user updated
+     */
+    UserModel updateUser(UserModel model);
 }

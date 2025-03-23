@@ -58,6 +58,25 @@ public class UserController implements UserAPI {
     }
 
     /**
+     * DELETE /delete_user/{id} : Delete a user by id.
+     *
+     * @param id The id of the user. (required)
+     * @return No content. (status code 204)
+     * or Bad request response. (status code 400)
+     * or Forbidden response. (status code 403)
+     * or Not found response. (status code 404)
+     */
+    @Override
+    public ResponseEntity<Void> deleteUser(Integer id) {
+        int response = userService.deleteUser(id);
+        if (response == 1) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
      * POST /search_users : Get a list of users.
      *
      * @param offset Number of items to skip. (optional, default to 0)
@@ -79,5 +98,25 @@ public class UserController implements UserAPI {
         pagedModel.add(links);
         PagedUserListDTO response = userMapper.userModelListToDTOList(pagedModel);
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * PUT /update_user : Update a user by id.
+     *
+     * @param userDTO (required)
+     * @return The updated user data. (status code 200)
+     * or Bad request response. (status code 400)
+     * or Forbidden response. (status code 403)
+     * or Not found response. (status code 404)
+     */
+    @Override
+    public ResponseEntity<UserDTO> updateUser(UserDTO userDTO) {
+        UserModel model = userMapper.userDTOTOModel(userDTO);
+        UserModel response = userService.updateUser(model);
+        if (response != null) {
+            return new ResponseEntity<>(userMapper.userModelToDTO(response), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(userDTO, null, HttpStatus.NOT_IMPLEMENTED);
+        }
     }
 }

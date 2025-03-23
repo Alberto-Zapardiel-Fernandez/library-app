@@ -26,4 +26,20 @@ public interface MyBatisUserMapper {
      * @return the users
      */
     List<UserModel> findUsers(UserModelFilter filter);
+
+    /**
+     * Delete user
+     *
+     * @param id the id
+     * @return the confirmation
+     */
+    int deleteUser(Integer id);
+
+    /**
+     * Update user
+     *
+     * @param model the model
+     * @return the model
+     */
+    int updateUser(UserModel model);
 }

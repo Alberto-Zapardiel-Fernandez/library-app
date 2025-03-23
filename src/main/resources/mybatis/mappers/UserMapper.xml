@@ -24,4 +24,20 @@
     </if>
     LIMIT #{limit} OFFSET #{offset}
   </select>
+
+  <update id="updateUser"
+          parameterType="com.library.library_app.domain.model.user.UserModel">
+    UPDATE users
+    SET username = #{username},
+        email = #{email},
+        password = #{password},
+        role = #{role}
+    WHERE id = #{id}
+  </update>
+
+  <delete id="deleteUser"
+          parameterType="java.lang.Integer">
+  DELETE FROM users
+  WHERE id = #{id}
+  </delete>
 </mapper>

@@ -24,4 +24,18 @@ public interface UserRepository {
      * @return the users
      */
     PagedModel<UserModel> getUsers(UserModelFilter filter);
+
+    /**
+     * Delete user
+     * @param id the id
+     * @return the confirmation
+     */
+    int deleteUser(Integer id);
+
+    /**
+     * Update user
+     * @param model the model
+     * @return the model
+     */
+    UserModel updateUser(UserModel model);
 }

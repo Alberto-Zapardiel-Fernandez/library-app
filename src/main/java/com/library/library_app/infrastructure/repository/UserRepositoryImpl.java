@@ -50,4 +50,31 @@ public class UserRepositoryImpl implements UserRepository {
         List<UserModel> users = myBatisUserMapper.findUsers(filter);
         return PagedModel.of(users, new PagedModel.PageMetadata(filter.getLimit(), filter.getOffset(), users.size()));
     }
+
+    /**
+     * Delete user
+     *
+     * @param id the id
+     * @return the confirmation
+     */
+    @Override
+    public int deleteUser(Integer id) {
+        return myBatisUserMapper.deleteUser(id);
+    }
+
+    /**
+     * Update user
+     *
+     * @param model the model
+     * @return the model
+     */
+    @Override
+    public UserModel updateUser(UserModel model) {
+        int response = myBatisUserMapper.updateUser(model);
+        if (response == 1) {
+            return model;
+        } else {
+            return null;
+        }
+    }
 }
