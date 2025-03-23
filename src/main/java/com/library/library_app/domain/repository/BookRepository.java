@@ -1,7 +1,7 @@
 package com.library.library_app.domain.repository;
 
-import com.library.library_app.domain.model.BookModel;
-import com.library.library_app.domain.model.BookModelFilter;
+import com.library.library_app.domain.model.book.BookModel;
+import com.library.library_app.domain.model.book.BookModelFilter;
 import org.springframework.hateoas.PagedModel;
 
 /**

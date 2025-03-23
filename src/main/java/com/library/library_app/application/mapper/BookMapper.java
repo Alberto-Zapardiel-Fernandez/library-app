@@ -2,7 +2,7 @@ package com.library.library_app.application.mapper;
 
 import com.library.application.controller.dto.BookDTO;
 import com.library.application.controller.dto.PagedBookListDTO;
-import com.library.library_app.domain.model.BookModel;
+import com.library.library_app.domain.model.book.BookModel;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

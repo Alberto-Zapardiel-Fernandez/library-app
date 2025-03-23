@@ -5,9 +5,33 @@ info:
 tags:
   - name: Book
     description: Operations related to books.
+  - name: User
+    description: Operations related to users.
 servers:
-  - url: "/books"
+  - url: "/"
 paths:
+  "/create_user":
+    post:
+      operationId: createUser
+      summary: Create a new user.
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: The created user.
+          $ref: '#/components/responses/UserResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
   "/search_books":
     post:
       operationId: getBooks
@@ -139,6 +163,21 @@ components:
           schema:
             $ref: '#/components/schemas/BookSearchFilter'
   schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+          pattern: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        password:
+          type: string
+        role:
+          type: integer
+          default: 0
     BookSearchFilter:
       $ref: '#/components/schemas/Book'
     Book:
@@ -221,6 +260,12 @@ components:
         pattern: '^\d{3}-\d{2}-\d{3}-\d{3}-\d{1}$'
       example: 978-85-99-14-901-9
   responses:
+    UserResponse:
+      description: The created user.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
     BadRequest:
       description: Bad request response.
       content:

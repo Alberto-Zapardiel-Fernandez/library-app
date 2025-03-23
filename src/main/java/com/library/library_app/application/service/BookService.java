@@ -1,6 +1,6 @@
 package com.library.library_app.application.service;
 
-import com.library.library_app.domain.model.BookModel;
+import com.library.library_app.domain.model.book.BookModel;
 import org.springframework.hateoas.PagedModel;
 
 /**

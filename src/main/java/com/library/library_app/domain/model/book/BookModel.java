@@ -1,4 +1,4 @@
-package com.library.library_app.domain.model;
+package com.library.library_app.domain.model.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -7,7 +7,7 @@ import com.library.library_app.application.hateoas.BookUrlBuilder;
 import com.library.library_app.application.hateoas.PaginationLinksGenerator;
 import com.library.library_app.application.mapper.BookMapper;
 import com.library.library_app.application.service.BookService;
-import com.library.library_app.domain.model.BookModel;
+import com.library.library_app.domain.model.book.BookModel;
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.Links;
 import org.springframework.hateoas.PagedModel;

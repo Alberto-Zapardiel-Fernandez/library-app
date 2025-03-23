@@ -1,8 +1,8 @@
 package com.library.library_app.domain.service;
 
 import com.library.library_app.application.service.BookService;
-import com.library.library_app.domain.model.BookModel;
-import com.library.library_app.domain.model.BookModelFilter;
+import com.library.library_app.domain.model.book.BookModel;
+import com.library.library_app.domain.model.book.BookModelFilter;
 import com.library.library_app.domain.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

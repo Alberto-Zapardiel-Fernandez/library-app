@@ -1,7 +1,7 @@
 package com.library.library_app.infrastructure.mybatis;
 
-import com.library.library_app.domain.model.BookModel;
-import com.library.library_app.domain.model.BookModelFilter;
+import com.library.library_app.domain.model.book.BookModel;
+import com.library.library_app.domain.model.book.BookModelFilter;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
