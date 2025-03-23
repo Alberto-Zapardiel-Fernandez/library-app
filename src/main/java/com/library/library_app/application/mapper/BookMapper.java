@@ -12,7 +12,6 @@ import org.springframework.hateoas.PagedModel;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper extends  LinksMapper{
@@ -23,27 +22,22 @@ public interface BookMapper extends  LinksMapper{
 
     @AfterMapping
     default void mapTotalElementsToLinksDTO(PagedModel<BookModel> pagedModel, @MappingTarget PagedBookListDTO target) {
-        if (pagedModel != null && target.getLinks().isPresent()) {
+        if (pagedModel != null && target.getLinks() != null) {
             PagedModel.PageMetadata metadata = pagedModel.getMetadata();
             if (metadata != null) {
-                target.getLinks().get().setCount(Optional.of((int) metadata.getTotalElements()));
+                target.getLinks().setCount((int) metadata.getTotalElements());
             }
         }
     }
 
-    default BookDTO bookModelToBookDto(BookModel bookModel){
-        BookDTO bookDTO = new BookDTO();
-        bookDTO.setId(Optional.ofNullable(bookModel.getId()));
-        bookDTO.setTitle(Optional.ofNullable(bookModel.getTitle()));
-        bookDTO.setAuthor(Optional.ofNullable(bookModel.getAuthor()));
-        bookDTO.setIsbn(Optional.ofNullable(bookModel.getIsbn()));
-        bookDTO.setAvailable(Optional.ofNullable(bookModel.getAvailable()));
-        return bookDTO;
-    }
+    BookModel bookDtoToBookModel(BookDTO dto);
+
+    BookDTO bookModelToBookDto(BookModel model);
 
     @Named("mapBookModelListToBookDtoList")
     default List<BookDTO> mapBookModelListToBookDtoList(Collection<BookModel> bookModelList) {
         return bookModelList.stream()
                 .map(this::bookModelToBookDto).toList();
     }
+
 }

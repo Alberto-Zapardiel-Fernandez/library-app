@@ -8,9 +8,21 @@
     SELECT COUNT(*) FROM books
   </select>
   <select id="findById" resultType="com.library.library_app.domain.model.BookModel">
-  SELECT * FROM books WHERE id = #{id}
+    SELECT * FROM books WHERE id = #{id}
   </select>
   <select id="findByIsbn" resultType="com.library.library_app.domain.model.BookModel">
-  SELECT * FROM books WHERE isbn = #{isbn}
+    SELECT * FROM books WHERE isbn = #{isbn}
   </select>
+  <insert id="createBook" parameterType="com.library.library_app.domain.model.BookModel">
+    INSERT INTO books (title, author, isbn, available)
+    VALUES (#{title}, #{author}, #{isbn}, #{available})
+  </insert>
+  <delete id="deleteBook" parameterType="int">
+    DELETE FROM books WHERE id = #{id}
+  </delete>
+  <update id="updateBook" parameterType="com.library.library_app.domain.model.BookModel">
+    UPDATE books
+    SET title = #{title}, author = #{author}, isbn = #{isbn}, available = #{available}
+    WHERE isbn= #{isbn}
+  </update>
 </mapper>

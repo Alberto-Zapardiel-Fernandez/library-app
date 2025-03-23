@@ -40,4 +40,25 @@ public interface MyBatisBookMapper {
      * @return the book
      */
     BookModel findByIsbn(String isbn);
+
+    /**
+     * Create a book
+     * @param model the book model
+     * @return the row
+     */
+    int createBook(BookModel model);
+
+    /**
+     * Delete a book
+     * @param id the id
+     * @return the row
+     */
+    int deleteBook(Integer id);
+
+    /**
+     * Update a book
+     * @param model the book model
+     * @return the row
+     */
+    int updateBook(BookModel model);
 }

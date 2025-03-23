@@ -241,7 +241,6 @@
 								<interfaceOnly>true</interfaceOnly>
 								<useTags>true</useTags>
 								<useSpringBoot3>true</useSpringBoot3>
-								<useOptional>true</useOptional>
 								<useJakartaEe>true</useJakartaEe>
 								<interfaceOnly>true</interfaceOnly>
 								<skipDefaultInterface>true</skipDefaultInterface>

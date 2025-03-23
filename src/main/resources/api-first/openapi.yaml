@@ -93,14 +93,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-  "/update_book/{id}":
+  "/update_book":
     put:
       operationId: updateBook
       summary: Update a book by id.
       tags:
         - Book
-      parameters:
-        - $ref: '#/components/parameters/BookId'
       requestBody:
         required: true
         content:

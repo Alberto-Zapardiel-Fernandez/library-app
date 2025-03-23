@@ -56,4 +56,36 @@ public class BookServiceImpl implements BookService {
         return bookRepository.getBookByIsbn(isbn);
     }
 
+    /**
+     * Create a book
+     *
+     * @param model the book model
+     * @return the book
+     */
+    @Override
+    public BookModel createBook(BookModel model) {
+        return bookRepository.createBook(model);
+    }
+
+    /**
+     * Update a book
+     *
+     * @param id@return the book
+     */
+    @Override
+    public int deleteBook(Integer id) {
+        return bookRepository.deleteBook(id);
+    }
+
+    /**
+     * Update a book
+     *
+     * @param model the book model
+     * @return the book
+     */
+    @Override
+    public BookModel updateBook(BookModel model) {
+        return bookRepository.updateBook(model);
+    }
+
 }

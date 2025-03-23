@@ -15,21 +15,21 @@ import java.util.Optional;
 public interface LinksMapper {
 
     @Named("linksToLinksDTO")
-    default Optional<LinksDTO> linksModelToLinksDTO(Links links){
+    default LinksDTO linksModelToLinksDTO(Links links){
         LinksDTO linksDTO = new com.library.application.controller.dto.LinksDTO();
 
         Optional<Link> lastLink = links.getLink("last");
-        lastLink.ifPresent(link -> linksDTO.setLast(Optional.of(link.getHref())));
+        lastLink.ifPresent(link -> linksDTO.setLast(link.getHref()));
 
         Optional<Link> nextLink = links.getLink("next");
-        nextLink.ifPresent(link -> linksDTO.setNext(Optional.of(link.getHref())));
+        nextLink.ifPresent(link -> linksDTO.setNext(link.getHref()));
 
         Optional<Link> prevLink = links.getLink("prev");
-        prevLink.ifPresent(link -> linksDTO.setPrev(Optional.of(link.getHref())));
+        prevLink.ifPresent(link -> linksDTO.setPrev(link.getHref()));
 
         Optional<Link> selfLink = links.getLink("self");
-        selfLink.ifPresent(link -> linksDTO.setSelf(Optional.of(link.getHref())));
+        selfLink.ifPresent(link -> linksDTO.setSelf(link.getHref()));
 
-        return Optional.of(linksDTO);
+        return linksDTO;
     }
 }

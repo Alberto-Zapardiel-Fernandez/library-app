@@ -11,16 +11,6 @@ import java.util.List;
 
 /**
  * Book Repository Implementation.
- * This class implements the BookRepository interface.
- * It uses MyBatis to access the database.
- * It is annotated with @Repository to indicate that it is a repository.
- * It uses Lombok's @AllArgsConstructor to generate a constructor with all the arguments.
- * It has a single method getBooks that returns a PagedModel of BookModel.
- * This method retrieves a list of books from the database and maps them to BookModel objects.
- * The method returns a PagedModel with the list of BookModel objects and the pagination metadata.
- * The mapBookToBookModel method is used to map a Book entity to a BookModel object.
- * The BookModel object is then added to the list of BookModel objects.
- * The PagedModel is created using the PagedModel. Of method, passing the list of BookModel objects and the pagination metadata.
  *
  * @author Alberto Zapardiel Fernández
  */
@@ -68,5 +58,53 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public BookModel getBookByIsbn(String isbn) {
         return myBatisBookMapper.findByIsbn(isbn);
+    }
+
+    /**
+     * Create a book
+     *
+     * @param model the book model
+     * @return the book
+     */
+    @Override
+    public BookModel createBook(BookModel model) {
+        int response = myBatisBookMapper.createBook(model);
+        if (response != 1) {
+            return new BookModel();
+        } else {
+            return myBatisBookMapper.findByIsbn(model.getIsbn());
+        }
+    }
+
+    /**
+     * Update a book
+     *
+     * @param id the id
+     * @return the book
+     */
+    @Override
+    public int deleteBook(Integer id) {
+        int response = myBatisBookMapper.deleteBook(id);
+        if (response != 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Update a book
+     *
+     * @param model the book model
+     * @return the book
+     */
+    @Override
+    public BookModel updateBook(BookModel model) {
+        int response = myBatisBookMapper.updateBook(model);
+        if (response != 1) {
+            return new BookModel();
+        } else {
+            return myBatisBookMapper.findByIsbn(model.getIsbn());
+        }
     }
 }

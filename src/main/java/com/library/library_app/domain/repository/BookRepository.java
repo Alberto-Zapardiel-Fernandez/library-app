@@ -34,4 +34,28 @@ public interface BookRepository {
      * @return the book
      */
     BookModel getBookByIsbn(String isbn);
+
+    /**
+     * Create a book
+     *
+     * @param model the book model
+     * @return the book
+     */
+    BookModel createBook(BookModel model);
+
+    /**
+     * Update a book
+     *
+     * @param id the id
+     * @return the book
+     */
+    int deleteBook(Integer id);
+
+    /**
+     * Update a book
+     *
+     * @param model the book model
+     * @return the book
+     */
+    BookModel updateBook(BookModel model);
 }

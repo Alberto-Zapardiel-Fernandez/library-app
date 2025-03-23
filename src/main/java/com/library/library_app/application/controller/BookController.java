@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Book Controller.
@@ -48,18 +47,29 @@ public class BookController implements BookAPI {
      */
     @Override
     public ResponseEntity<BookDTO> createBook(BookDTO bookDTO) {
-        return null;
+        BookModel model = bookMapper.bookDtoToBookModel(bookDTO);
+        BookModel response = bookService.createBook(model);
+        if (response == null || response.getId() == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
+            return new ResponseEntity<>(bookDTO, null, HttpStatus.CREATED);
+        }
     }
 
     /**
      * DELETE /delete_book/{id} : Delete a book by id.
      *
      * @param id The id of the book. (required)
-     * @return No content. (status code 204)
+     * @return ERROR 500 or OK 200
      */
     @Override
     public ResponseEntity<Void> deleteBook(Integer id) {
-        return null;
+        int response = bookService.deleteBook(id);
+        if (response == 0){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 
     /**
@@ -111,13 +121,11 @@ public class BookController implements BookAPI {
      * or Not found response. (status code 404)
      */
     @Override
-    public ResponseEntity<PagedBookListDTO> getBooks(Optional<Integer> offset, Optional<Integer> limit) {
-        int offsetValue = offset.orElse(0);
-        int limitValue = limit.orElse(10);
-        PagedModel<BookModel> pagedModel = bookService.getBooks(offset.orElse(0), limit.orElse(10));
+    public ResponseEntity<PagedBookListDTO> getBooks(Integer offset, Integer limit) {
+        PagedModel<BookModel> pagedModel = bookService.getBooks(offset, limit);
 
         BookUrlBuilder urlBuilder = new BookUrlBuilder();
-        Links links = PaginationLinksGenerator.generateLinks(offsetValue, limitValue,
+        Links links = PaginationLinksGenerator.generateLinks(offset, limit,
                 Objects.requireNonNull(pagedModel.getMetadata()).getTotalElements(), urlBuilder);
 
         pagedModel.add(links);
@@ -129,7 +137,6 @@ public class BookController implements BookAPI {
     /**
      * PUT /update_book/{id} : Update a book by id.
      *
-     * @param id      The id of the book. (required)
      * @param bookDTO (required)
      * @return The updated book data. (status code 200)
      * or Bad request response. (status code 400)
@@ -137,8 +144,14 @@ public class BookController implements BookAPI {
      * or Not found response. (status code 404)
      */
     @Override
-    public ResponseEntity<BookDTO> updateBook(Integer id, BookDTO bookDTO) {
-        return null;
+    public ResponseEntity<BookDTO> updateBook(BookDTO bookDTO) {
+        BookModel model = bookMapper.bookDtoToBookModel(bookDTO);
+        BookDTO response = bookMapper.bookModelToBookDto(bookService.updateBook(model));
+        if (response != null && response.getId() != null){
+            return new ResponseEntity<>(response, null, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
