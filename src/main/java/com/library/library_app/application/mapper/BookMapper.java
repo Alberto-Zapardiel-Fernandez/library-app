@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface BookMapper extends  LinksMapper{
+public interface BookMapper extends LinksMapper{
 
     @Mapping(target = "books", qualifiedByName = "mapBookModelListToBookDtoList", source = "content")
     @Mapping(target = "links", source = "links", qualifiedByName = "linksToLinksDTO")

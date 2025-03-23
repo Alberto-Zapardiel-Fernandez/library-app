@@ -10,6 +10,26 @@ tags:
 servers:
   - url: "/"
 paths:
+  "/search_users":
+    post:
+      operationId: getUsers
+      summary: Get a list of users.
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      requestBody:
+        $ref: '#/components/requestBodies/UserSearch'
+      responses:
+        '200':
+          $ref: '#/components/responses/PagedUserListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
   "/create_user":
     post:
       operationId: createUser
@@ -162,7 +182,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/BookSearchFilter'
+    UserSearch:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserSearchFilter'
   schemas:
+    UserSearchFilter:
+      $ref: '#/components/schemas/User'
     User:
       type: object
       properties:
@@ -220,6 +247,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Book'
+        links:
+          $ref: '#/components/schemas/Links'
+    PagedUserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
         links:
           $ref: '#/components/schemas/Links'
   parameters:
@@ -290,3 +326,9 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/PagedBookList'
+    PagedUserListResponse:
+      description: List of books with pagination links.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PagedUserList'

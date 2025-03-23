@@ -2,8 +2,10 @@ package com.library.library_app.domain.service;
 
 import com.library.library_app.application.service.UserService;
 import com.library.library_app.domain.model.user.UserModel;
+import com.library.library_app.domain.model.user.UserModelFilter;
 import com.library.library_app.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,5 +29,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel createUser(UserModel userModel) {
         return userRepository.createUser(userModel);
+    }
+
+    /**
+     * Get Users
+     *
+     * @param filter the filter
+     * @return the users
+     */
+    @Override
+    public PagedModel<UserModel> getUsers(UserModelFilter filter) {
+        return userRepository.getUsers(filter);
     }
 }

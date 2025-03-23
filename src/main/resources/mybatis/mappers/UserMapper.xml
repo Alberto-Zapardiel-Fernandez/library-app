@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.library.library_app.infrastructure.mybatis.MyBatisUserMapper">
-  <insert id="createUser" parameterType="com.library.library_app.domain.model.user.UserModel">
-  INSERT INTO users (name, email, password, role)
-  VALUES (#{name}, #{email}, #{password}, #{role})
+
+  <insert id="createUser"
+          parameterType="com.library.library_app.domain.model.user.UserModel">
+  INSERT INTO users (username, email, password, role)
+  VALUES (#{username}, #{email}, #{password}, #{role})
   </insert>
+
+  <select id="findUsers"
+          resultType="com.library.library_app.domain.model.user.UserModel"
+          parameterType="com.library.library_app.domain.model.user.UserModelFilter">
+    SELECT * FROM users
+    WHERE 1=1
+    <if test="userModel.id != null &amp;&amp; userModel.id != 0">
+      AND id = #{userModel.id}
+    </if>
+    <if test="userModel.username != null">
+      AND username = #{userModel.username}
+    </if>
+    <if test="userModel.email != null">
+      AND email = #{userModel.email}
+    </if>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
 </mapper>

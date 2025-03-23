@@ -3,7 +3,7 @@ package com.library.library_app.application.controller;
 import com.library.application.controller.api.BookAPI;
 import com.library.application.controller.dto.BookDTO;
 import com.library.application.controller.dto.PagedBookListDTO;
-import com.library.library_app.application.hateoas.BookUrlBuilder;
+import com.library.library_app.application.hateoas.UrlBuilderImpl;
 import com.library.library_app.application.hateoas.PaginationLinksGenerator;
 import com.library.library_app.application.mapper.BookMapper;
 import com.library.library_app.application.service.BookService;
@@ -125,7 +125,7 @@ public class BookController implements BookAPI {
         BookModel filter = bookMapper.bookDtoToBookModel(body);
         PagedModel<BookModel> pagedModel = bookService.getBooks(offset, limit, filter);
 
-        BookUrlBuilder urlBuilder = new BookUrlBuilder();
+        UrlBuilderImpl urlBuilder = new UrlBuilderImpl();
         Links links = PaginationLinksGenerator.generateLinks(offset, limit,
                 Objects.requireNonNull(pagedModel.getMetadata()).getTotalElements(), urlBuilder);
 

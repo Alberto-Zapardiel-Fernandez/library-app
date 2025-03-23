@@ -3,10 +3,10 @@ package com.library.library_app.application.hateoas;
 import org.springframework.hateoas.Link;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-public class BookUrlBuilder implements UrlBuilder {
+public class UrlBuilderImpl implements UrlBuilder {
     private final String baseUrl;
 
-    public BookUrlBuilder() {
+    public UrlBuilderImpl() {
         this.baseUrl = ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString();
     }
 
