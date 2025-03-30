@@ -248,6 +248,11 @@
 								<useJakartaEe>true</useJakartaEe>
 								<interfaceOnly>true</interfaceOnly>
 								<skipDefaultInterface>true</skipDefaultInterface>
+								<importMappings>
+									<importMapping>java.sql.Date=java.time.LocalDate</importMapping>
+									<importMapping>OffsetDateTime=java.time.OffsetDateTime</importMapping>
+									<importMapping>DateTime=java.time.LocalDateTime</importMapping>
+								</importMappings>
 							</configOptions>
 						</configuration>
 					</execution>

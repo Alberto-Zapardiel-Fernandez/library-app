@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.library_app.infrastructure.mybatis.MyBatisReservationMapper">
+    <resultMap id="ReservationResultMap" type="com.library.library_app.domain.model.Reservation">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="bookId" column="book_id"/>
+        <result property="reservationDate" column="reservation_date"/>
+        <result property="returnDate" column="return_date"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="findById" parameterType="long" resultMap="ReservationResultMap">
+        SELECT * FROM reservations WHERE id = #{id}
+    </select>
+
+    <insert id="createReservation" parameterType="com.library.library_app.domain.model.Reservation">
+        INSERT INTO reservations (user_id, book_id, reservation_date, return_date, status)
+        VALUES (#{userId}, #{bookId}, #{reservationDate}, #{returnDate}, #{status})
+    </insert>
+
+    <update id="updateReservation" parameterType="com.library.library_app.domain.model.Reservation">
+        UPDATE reservations
+        SET user_id = #{userId}, book_id = #{bookId}, reservation_date = #{reservationDate},
+        return_date = #{returnDate}, status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteReservation" parameterType="long">
+        DELETE FROM reservations WHERE id = #{id}
+    </delete>
+</mapper>

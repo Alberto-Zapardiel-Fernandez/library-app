@@ -7,9 +7,45 @@ tags:
     description: Operations related to books.
   - name: User
     description: Operations related to users.
+  - name: Reservation
+    description: Operations related with reservations.
 servers:
   - url: "/"
 paths:
+  "/update_reservation":
+    put:
+      operationId: updateReservation
+      summary: Update a reservation by id.
+      tags:
+        - Reservation
+      requestBody:
+        $ref: '#/components/requestBodies/ReservationRequest'
+      responses:
+        '201':
+          $ref: '#/components/responses/ReservationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  "/create_reservation":
+    post:
+      operationId: createReservation
+      summary: Create a new reservation.
+      tags:
+        - Reservation
+      requestBody:
+        $ref: '#/components/requestBodies/ReservationRequest'
+      responses:
+        '201':
+          $ref: '#/components/responses/ReservationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
   "/delete_user/{id}":
     delete:
       operationId: deleteUser
@@ -219,6 +255,12 @@ paths:
           description: No content.
 components:
   requestBodies:
+    ReservationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Reservation'
     BookSearch:
       content:
         application/json:
@@ -230,6 +272,35 @@ components:
           schema:
             $ref: '#/components/schemas/UserSearchFilter'
   schemas:
+    ReservationStatus:
+      type: string
+      enum:
+        - PENDING
+        - ACTIVE
+        - COMPLETED
+        - CANCELLED
+      description: The status of the reservation.
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: integer
+        bookId:
+          type: integer
+        userId:
+          type: integer
+        reservationDate:
+          type: string
+          format: date
+        returnDate:
+          type: string
+          format: date
+        status:
+          $ref: '#/components/schemas/ReservationStatus'
+        user:
+          $ref: '#/components/schemas/User'
+        book:
+          $ref: '#/components/schemas/Book'
     UserSearchFilter:
       $ref: '#/components/schemas/User'
     User:
@@ -346,6 +417,12 @@ components:
         pattern: '^\d{3}-\d{2}-\d{3}-\d{3}-\d{1}$'
       example: 978-85-99-14-901-9
   responses:
+    ReservationResponse:
+      description: The created reservation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Reservation'
     UserResponse:
       description: The created user.
       content:
