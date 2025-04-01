@@ -23,4 +23,11 @@ public interface ReservationRepository {
      * @return the updated reservation
      */
     ReservationModel updateReservation(ReservationModel reservation);
+
+    /**
+     * Delete a reservation by id
+     *
+     * @param id the reservation id
+     */
+    boolean isBookReserved(Integer id);
 }

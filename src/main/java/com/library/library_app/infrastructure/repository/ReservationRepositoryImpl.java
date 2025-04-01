@@ -1,6 +1,7 @@
 package com.library.library_app.infrastructure.repository;
 
 import com.library.library_app.domain.model.reservation.ReservationModel;
+import com.library.library_app.domain.model.reservation.ReservationStatusModel;
 import com.library.library_app.domain.repository.ReservationRepository;
 import com.library.library_app.infrastructure.mybatis.MyBatisReservationMapper;
 import lombok.AllArgsConstructor;
@@ -41,5 +42,16 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     public ReservationModel updateReservation(ReservationModel reservation) {
         int result = myBatisReservationMapper.updateReservation(reservation);
         return null;
+    }
+
+    /**
+     * Delete a reservation by id
+     *
+     * @param id the reservation id
+     */
+    @Override
+    public boolean isBookReserved(Integer id) {
+        ReservationModel reservationModel = myBatisReservationMapper.findReservationById(id);
+        return reservationModel.getStatus().equals(ReservationStatusModel.ACTIVE);
     }
 }

@@ -38,4 +38,18 @@ public interface UserRepository {
      * @return the model
      */
     UserModel updateUser(UserModel model);
+
+    /**
+     * Find user by id
+     * @param id the id
+     * @return the user
+     */
+    UserModel findById(Integer id);
+
+    /**
+     * Find user by dni
+     * @param dni the dni
+     * @return the user
+     */
+    UserModel findByDni(String dni);
 }

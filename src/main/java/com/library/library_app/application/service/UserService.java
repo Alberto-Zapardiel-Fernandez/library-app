@@ -38,4 +38,18 @@ public interface UserService {
      * @return the user updated
      */
     UserModel updateUser(UserModel model);
+
+    /**
+     * Find User by id
+     * @param id the user id
+     * @return the user
+     */
+    UserModel findById(Integer id);
+
+    /**
+     * Find User by dni
+     * @param dni the user dni
+     * @return the user
+     */
+    UserModel findByDni(String dni);
 }

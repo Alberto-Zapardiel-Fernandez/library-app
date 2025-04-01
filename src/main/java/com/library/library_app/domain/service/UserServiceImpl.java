@@ -63,4 +63,26 @@ public class UserServiceImpl implements UserService {
     public UserModel updateUser(UserModel model) {
         return userRepository.updateUser(model);
     }
+
+    /**
+     * Find User by id
+     *
+     * @param id the user id
+     * @return the user
+     */
+    @Override
+    public UserModel findById(Integer id) {
+        return userRepository.findById(id);
+    }
+
+    /**
+     * Find User by dni
+     *
+     * @param dni the user dni
+     * @return the user
+     */
+    @Override
+    public UserModel findByDni(String dni) {
+        return userRepository.findByDni(dni);
+    }
 }

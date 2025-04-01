@@ -77,6 +77,36 @@ public class UserController implements UserAPI {
     }
 
     /**
+     * GET /search_user_dni/{dni} : Get a user by his dni.
+     *
+     * @param dni The dni of the user. (required)
+     * @return The user data. (status code 200)
+     * or Bad request response. (status code 400)
+     * or Forbidden response. (status code 403)
+     * or Not found response. (status code 404)
+     */
+    @Override
+    public ResponseEntity<UserDTO> getUserByDni(String dni) {
+        UserDTO response = userMapper.userModelToDTO(userService.findByDni(dni));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * GET /search_user/{id} : Get a user by id.
+     *
+     * @param id The id of the user. (required)
+     * @return The user data. (status code 200)
+     * or Bad request response. (status code 400)
+     * or Forbidden response. (status code 403)
+     * or Not found response. (status code 404)
+     */
+    @Override
+    public ResponseEntity<UserDTO> getUserById(Integer id) {
+        UserDTO response = userMapper.userModelToDTO(userService.findById(id));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
      * POST /search_users : Get a list of users.
      *
      * @param offset Number of items to skip. (optional, default to 0)

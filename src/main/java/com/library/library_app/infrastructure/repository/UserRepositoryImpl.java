@@ -77,4 +77,26 @@ public class UserRepositoryImpl implements UserRepository {
             return null;
         }
     }
+
+    /**
+     * Find user by id
+     *
+     * @param id the id
+     * @return the user
+     */
+    @Override
+    public UserModel findById(Integer id) {
+        return myBatisUserMapper.findUserById(id);
+    }
+
+    /**
+     * Find user by dni
+     *
+     * @param dni the dni
+     * @return the user
+     */
+    @Override
+    public UserModel findByDni(String dni) {
+        return myBatisUserMapper.findUserByDni(dni);
+    }
 }

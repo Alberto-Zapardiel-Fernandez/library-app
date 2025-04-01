@@ -42,4 +42,20 @@ public interface MyBatisUserMapper {
      * @return the model
      */
     int updateUser(UserModel model);
+
+    /**
+     * Find user by id
+     *
+     * @param id the id
+     * @return the user
+     */
+    UserModel findUserById(Integer id);
+
+    /**
+     * Find user by dni
+     *
+     * @param dni the dni
+     * @return the user
+     */
+    UserModel findUserByDni(String dni);
 }

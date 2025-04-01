@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public enum ReservationStatusModel {
 
-    PENDING("PENDING"),
     ACTIVE("ACTIVE"),
     COMPLETED("COMPLETED"),
     CANCELLED("CANCELLED");

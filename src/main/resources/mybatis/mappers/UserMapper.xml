@@ -2,10 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.library.library_app.infrastructure.mybatis.MyBatisUserMapper">
 
+  <select id="findUserByDni"
+          parameterType="java.lang.String"
+          resultType="com.library.library_app.domain.model.user.UserModel">
+    SELECT * FROM users
+    WHERE dni = #{dni}
+  </select>
+
+  <select id="findUserById"
+          parameterType="java.lang.Integer"
+          resultType="com.library.library_app.domain.model.user.UserModel">
+    SELECT * FROM users
+    WHERE id = #{id}
+  </select>
+
   <insert id="createUser"
           parameterType="com.library.library_app.domain.model.user.UserModel">
-  INSERT INTO users (username, email, password, role)
-  VALUES (#{username}, #{email}, #{password}, #{role})
+  INSERT INTO users (username, dni, email, password, role)
+  VALUES (#{username}, #{dni} #{email}, #{password}, #{role})
   </insert>
 
   <select id="findUsers"
@@ -15,6 +29,9 @@
     WHERE 1=1
     <if test="userModel.id != null &amp;&amp; userModel.id != 0">
       AND id = #{userModel.id}
+    </if>
+    <if test="userModel.dni != null">
+      AND dni = #{userModel.dni}
     </if>
     <if test="userModel.username != null">
       AND username = #{userModel.username}
@@ -29,10 +46,17 @@
           parameterType="com.library.library_app.domain.model.user.UserModel">
     UPDATE users
     SET username = #{username},
+        dni = #{dni},
         email = #{email},
         password = #{password},
         role = #{role}
-    WHERE id = #{id}
+    WHERE 1 = 1
+    <if test="userModel.id != null">
+    and id = #{id}
+    </if>
+    <if test="userModel.dni != null">
+    and dni = #{dni}
+    </if>
   </update>
 
   <delete id="deleteUser"

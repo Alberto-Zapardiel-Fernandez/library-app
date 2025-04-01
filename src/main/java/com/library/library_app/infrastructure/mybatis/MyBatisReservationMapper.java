@@ -24,4 +24,11 @@ public interface MyBatisReservationMapper {
      * @return the updated reservation
      */
     int updateReservation(ReservationModel reservation);
+
+    /**
+     * Delete a reservation by id
+     *
+     * @param id the reservation id
+     */
+    ReservationModel findReservationById(Integer id);
 }
